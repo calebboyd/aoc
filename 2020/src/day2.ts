@@ -1,4 +1,4 @@
-import { aoc } from './common'
+import { aoc } from './runner'
 
 export const day2 = aoc(
   (line) => {
@@ -21,7 +21,7 @@ export const day2 = aoc(
           valid++
         }
       }
-      finish(valid)
+      return finish(valid)
     } else {
       let valid = 0
       for (const pw of lines) {
@@ -33,7 +33,7 @@ export const day2 = aoc(
           valid++
         }
       }
-      finish(valid)
+      return finish(valid)
     }
   },
   'day2-pre'

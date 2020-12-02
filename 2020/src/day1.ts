@@ -1,4 +1,4 @@
-import { aoc } from './common'
+import { aoc } from './runner'
 
 export const day1 = aoc(
   (x) => Number(x),
@@ -23,7 +23,12 @@ export const day1 = aoc(
           return a + b === 2020
         })
       })
-    finish(solved ? addends.reduce((acc, cur) => cur * acc) : 'NOT')
+
+    if (solved) {
+      const output = addends.reduce((acc, cur) => cur * acc)
+      return finish(output)
+    }
+    return finish(false)
   },
   'day1-edge'
 )
