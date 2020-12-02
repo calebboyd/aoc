@@ -1,40 +1,26 @@
 import { aoc } from './runner'
 
-export const day2 = aoc(
+const day2 = aoc(
   (line) => {
-    const [range, letter, password] = line.split(' '),
-      [min, max] = range.split('-'),
-      focus = letter.replace(':', '')
-    return {
-      min: Number(min),
-      max: Number(max),
-      focus,
-      password: password.trim(),
-    }
+    const [policy, pw] = line.split(':').map((x) => x.trim()),
+      [ab, focus] = policy.split(' ')
+    return [ab.split('-').map(Number), focus, pw] as const
   },
   function day2(lines, partB, finish) {
-    if (!partB) {
-      let valid = 0
-      for (const pw of lines) {
-        const occurrences = Array.from(pw.password).filter((x) => x === pw.focus).length
-        if (occurrences >= pw.min && occurrences <= pw.max) {
-          valid++
-        }
+    let validA = 0,
+      validB = 0
+    for (const [[a, b], focus, pw] of lines) {
+      const occurrences = Array.from(pw).filter((x) => x === focus).length
+      if (occurrences >= a && occurrences <= b) {
+        validA++
       }
-      return finish(valid)
-    } else {
-      let valid = 0
-      for (const pw of lines) {
-        const count = [
-          pw.password[pw.min - 1] === pw.focus,
-          pw.password[pw.max - 1] === pw.focus,
-        ].filter((x) => x).length
-        if (count === 1) {
-          valid++
-        }
+      const count = [pw[a - 1] === focus, pw[b - 1] === focus].filter((x) => x)
+      if (count.length === 1) {
+        validB++
       }
-      return finish(valid)
     }
+    return finish(partB ? validB : validA)
   },
   'day2-pre'
 )
+export default day2

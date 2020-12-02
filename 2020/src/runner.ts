@@ -2,6 +2,11 @@ import { resolve as pathResolve, join } from 'path'
 import { createReadStream } from 'fs'
 import { createInterface } from 'readline'
 
+type Result = { output: unknown; partB: boolean }
+type ResultSet = Map<string, Result>
+type AoCImplementation = (partB?: boolean) => Promise<ResultSet>
+type ResultPicker = (inputKey: string) => unknown | (() => ResultSet)
+
 async function ingest<T>(file: string, constructor: (l: string) => T) {
   const byLine = createInterface(createReadStream(pathResolve(__dirname, join('../inputs', file)))),
     lines: T[] = []
@@ -11,7 +16,7 @@ async function ingest<T>(file: string, constructor: (l: string) => T) {
   return lines
 }
 
-function finish(title: string, data: any, fail?: boolean): void {
+function finish(title: string, data: unknown, fail?: boolean): unknown {
   const message = title + (fail ? ' --- Not Solved --- ' : ' --- Solved ') + data
   if (fail) {
     throw new Error(message)
@@ -19,8 +24,6 @@ function finish(title: string, data: any, fail?: boolean): void {
   console.log(message)
   return data
 }
-
-type ResultSet = Map<string, { output: any; partB: boolean }>
 
 export function aoc<T>(
   constructor: (l: string) => T,
@@ -55,10 +58,13 @@ export function aoc<T>(
 }
 
 export async function run(
-  day: (partB?: boolean) => ReturnType<ReturnType<typeof aoc>>
-): Promise<ResultSet> {
-  const [part1, part2] = await Promise.all([day(), day(true)]),
+  fun: AoCImplementation | Promise<{ default: AoCImplementation }>
+): Promise<ResultPicker> {
+  const day = typeof fun === 'function' ? fun : (await fun).default,
+    [part1, part2] = await Promise.all([day(), day(true)]),
     dayResults = Array.from(part1.entries())
+
   dayResults.push(...part2.entries())
-  return new Map(dayResults)
+  const set = new Map(dayResults)
+  return (key?: string) => (key ? set.get(key)?.output : set)
 }

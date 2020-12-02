@@ -1,6 +1,6 @@
 import { aoc } from './runner'
 
-export const day1 = aoc(
+const day1 = aoc(
   (x) => Number(x),
   function day1(numbers, partB, finish) {
     const addends: number[] = [],
@@ -32,3 +32,5 @@ export const day1 = aoc(
   },
   'day1-edge'
 )
+
+export default day1

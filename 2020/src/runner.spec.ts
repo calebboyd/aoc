@@ -1,20 +1,18 @@
 import { run } from './runner'
-import { day1 } from './day1'
-import { day2 } from './day2'
 
 describe('Advent Of Code', () => {
-  it('day1', async () => {
-    const results = await run(day1)
-    expect(results.get('day1')?.output).toBe(1007331)
-    expect(results.get('day1 part b')?.output).toBe(48914340)
-    expect(results.get('day1-edge')?.output).toEqual(false)
-    expect(results.get('day1-edge part b')?.output).toEqual(false)
+  test('day1', async () => {
+    const outputOf = await run(import('./day1'))
+    expect(outputOf('day1')).toBe(1007331)
+    expect(outputOf('day1 part b')).toBe(48914340)
+    expect(outputOf('day1-edge')).toEqual(false)
+    expect(outputOf('day1-edge part b')).toEqual(false)
   })
-  it('day2', async () => {
-    const results = await run(day2)
-    expect(results.get('day2-pre')?.output).toBe(2)
-    expect(results.get('day2-pre part b')?.output).toBe(1)
-    expect(results.get('day2')?.output).toEqual(560)
-    expect(results.get('day2 part b')?.output).toEqual(303)
+  test('day2', async () => {
+    const outputOf = await run(import('./day2'))
+    expect(outputOf('day2-pre')).toBe(2)
+    expect(outputOf('day2-pre part b')).toBe(1)
+    expect(outputOf('day2')).toEqual(560)
+    expect(outputOf('day2 part b')).toEqual(303)
   })
 })
