@@ -20,4 +20,10 @@ describe('Advent Of Code', () => {
     expect(outputOf('day3')).toEqual(145)
     expect(outputOf('day3 part b')).toEqual(3424528800)
   })
+  test('day4', async () => {
+    const outputOf = await run(import('./day4'))
+    expect(outputOf('day4')).toEqual(233)
+    expect(outputOf('day4 part b')).toEqual(111)
+    expect(outputOf('day4-pre')).toEqual(2)
+  })
 })
