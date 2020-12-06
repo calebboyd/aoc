@@ -6,7 +6,7 @@
     "skipLibCheck": true,
     "lib": [
       "dom",
-      "es2018"
+      "es2020"
     ],
     "outDir": "lib",
     "strict": true,
