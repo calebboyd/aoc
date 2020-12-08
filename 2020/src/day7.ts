@@ -3,7 +3,7 @@ import { aoc } from './runner'
 function toBag(rule: string) {
   rule = rule.replace(/bags?/g, '').replace(/\./g, '')
   const [bag, subBags] = rule.split('contain').map((x) => x.trim()),
-    canHold = subBags
+    innerBags = subBags
       .split(',')
       .map((x) => x.trim())
       .map((bag) => {
@@ -13,7 +13,7 @@ function toBag(rule: string) {
         }
         return [bag, 0] as const
       })
-  return [bag, canHold] as const
+  return [bag, innerBags] as const
 }
 
 const day7 = aoc(
@@ -24,8 +24,8 @@ const day7 = aoc(
         visited = new Set<string>()
       let focus: string | undefined = ''
       while ((focus = found.pop())) {
-        for (const [bag, canHold] of bags) {
-          if (canHold.find((x) => x[0] === focus) && !visited.has(bag)) {
+        for (const [bag, innerBags] of bags) {
+          if (!visited.has(bag) && innerBags.find((x) => x[0] === focus)) {
             visited.add(bag)
             found.push(bag)
           }
