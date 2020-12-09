@@ -72,3 +72,11 @@ describe('Advent Of Code day8', () => {
     expect('day8 part b').toEqual(1375)
   })
 })
+describe('Advent Of Code day9', () => {
+  test('day9', async () => {
+    const expect = await expectFor('./day9')
+    expect('day9').toEqual(1398413738)
+    expect('day9 part b').toEqual(169521051)
+    //expect('day9 part b').toEqual(undefined)
+  })
+})
