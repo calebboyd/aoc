@@ -1,52 +1,42 @@
 import { aoc } from './runner'
 
-function without<T>(arr: T[], i: number): T[] {
-  const copy = arr.slice()
-  copy.splice(i, 1)
-  return copy
-}
-
-type Adapter = {
-  adapter: number
+type Node = {
+  i: number
   joltage: number
-  visited: boolean
-  difference: number
-  next: number | undefined
+  children: Node[]
 }
-
-function findNext(input: number, joltages: number[], ...tolerances: number[]) {
-  return joltages
-    .filter((joltage) => {
-      return tolerances.includes(joltage - input)
-    })
-    .sort((a, b) => a - b)[0]
-}
-
 const day10 = aoc(
   (line) => Number(line),
   function day10(lines, partB, finish) {
-    lines.sort((a, b) => a - b).push(lines[lines.length - 1] + 3)
-    lines.unshift(0)
-    let one = 0
-    let three = 0
-    const adapters = Array.from(lines.entries()).map(([i, joltage]) => {
-      const next = findNext(joltage, lines.slice(i + 1), 1, 2, 3)
-      const adapter = {
+    lines = [0, ...lines.sort((a, b) => a - b)]
+    lines.push(lines[lines.length - 1] + 3)
+    let threeJolt = 0,
+      oneJolt = 0
+    const nodes: Node[] = Array.from(lines.entries()).map(([i, joltage]) => ({
+        i,
         joltage,
-        visited: false,
-        next,
-        difference: next - joltage,
-      } as Adapter
-      if (adapter.difference === 1) {
-        ++one
-      }
-      if (adapter.difference === 3) {
-        ++three
-      }
-      return adapter
-    })
+        children: [],
+      })),
+      counts = nodes.reduce(
+        (pathCount, { children, joltage, i: parentI }) => {
+          const [first, ...rest] = nodes.slice(parentI + 1).filter((x) => x.joltage - joltage <= 3)
+          if (first) {
+            children.push(first, ...rest)
+            if (first.joltage - joltage === 3) threeJolt++
+            if (first.joltage - joltage === 1) oneJolt++
+          }
+          children.forEach(({ i }) => {
+            const parentPathCount = pathCount[parentI] ?? 0,
+              existingPathCount = pathCount[i] ?? 0
+            pathCount[i] = parentPathCount + existingPathCount
+          })
+          return pathCount
+        },
+        { 0: 1 } as { [key: number]: number }
+      )
 
-    return finish(one * three)
+    if (!partB) return finish(oneJolt * threeJolt)
+    return finish(counts[nodes.length - 1])
   },
   'day10-pre',
   'day10-prea'
