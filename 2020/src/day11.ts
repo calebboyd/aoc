@@ -87,12 +87,12 @@ function print(seats: Seat[], width: number) {
 const day11 = aoc(
   (line) => line.split('').map((x, c) => new Seat(x === '.', c)),
   function day11(rows, partB, finish) {
-    const seats = initSeats(rows, partB).flat(),
-      checkStability = () =>
-        seats.filter((x) => (partB ? x.lookAround() : x.occupy())).length === seats.length
+    const mode = partB ? 'lookAround' : 'occupy',
+      seats = initSeats(rows, partB).flat(),
+      checkStability = () => seats.filter((x) => x[mode]()).length === seats.length
     while (!checkStability()) {
       seats.forEach((x) => x.commit())
-      print(seats, rows[0].length)
+      //print(seats, rows[0].length)
     }
     return finish(seats.filter((x) => !x.empty).length)
   },
