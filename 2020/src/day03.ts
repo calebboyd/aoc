@@ -1,8 +1,8 @@
 import { aoc } from './runner'
 
-const day3 = aoc(
+const day03 = aoc(
   (line) => line.split(''),
-  function day3(matrix, partB, finish) {
+  function day03(matrix, partB, finish) {
     let partAResult = 0
     const partBResult = [
       [1, 1],
@@ -26,4 +26,4 @@ const day3 = aoc(
     return finish(partAResult)
   }
 )
-export default day3
+export default day03

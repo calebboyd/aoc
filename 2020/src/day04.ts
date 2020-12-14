@@ -72,9 +72,9 @@ function testProps(obj: Record<any, any>) {
   return Object.entries(passportValidators).every(([key, validator]) => validator(obj[key]))
 }
 
-const day4 = aoc(
+const day04 = aoc(
   parseLine,
-  function day4(parsedLines, partB, finish) {
+  function day04(parsedLines, partB, finish) {
     const passports = linesToPassportRecords(parsedLines)
     if (!partB) {
       return finish(passports.filter(hasProps).length)
@@ -82,6 +82,6 @@ const day4 = aoc(
       return finish(passports.filter(testProps).length)
     }
   },
-  'day4-pre'
+  'day04-pre'
 )
-export default day4
+export default day04

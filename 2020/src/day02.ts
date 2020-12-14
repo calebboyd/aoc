@@ -1,12 +1,12 @@
 import { aoc } from './runner'
 
-const day2 = aoc(
+const day02 = aoc(
   (line) => {
     const [policy, pw] = line.split(':').map((x) => x.trim()),
       [ab, focus] = policy.split(' ')
     return [ab.split('-').map(Number), focus, pw] as const
   },
-  function day2(lines, partB, finish) {
+  function day02(lines, partB, finish) {
     let validA = 0,
       validB = 0
     for (const [[a, b], focus, pw] of lines) {
@@ -21,6 +21,6 @@ const day2 = aoc(
     }
     return finish(partB ? validB : validA)
   },
-  'day2-pre'
+  'day02-pre'
 )
-export default day2
+export default day02

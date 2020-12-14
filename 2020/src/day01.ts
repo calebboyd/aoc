@@ -1,8 +1,8 @@
 import { aoc } from './runner'
 
-const day1 = aoc(
+const day01 = aoc(
   (x) => Number(x),
-  function day1(numbers, partB, finish) {
+  function day01(numbers, partB, finish) {
     const addends: number[] = [],
       solved = numbers.some((a, i) => {
         addends[0] = a
@@ -30,7 +30,7 @@ const day1 = aoc(
     }
     return finish(false)
   },
-  'day1-edge'
+  'day01-edge'
 )
 
-export default day1
+export default day01

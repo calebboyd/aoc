@@ -23,9 +23,9 @@ function getCorruptNumber(numbers: number[], window: [number, number]) {
   return focus
 }
 
-const day9 = aoc(
+const day09 = aoc(
   (line) => Number(line),
-  function day9(numbers, partB, finish) {
+  function day09(numbers, partB, finish) {
     if (partB) {
       const corrupt = getCorruptNumber(numbers, [0, 25])
       num: for (const [i, num] of numbers.entries()) {
@@ -45,4 +45,4 @@ const day9 = aoc(
   }
 )
 
-export default day9
+export default day09

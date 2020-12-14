@@ -21,9 +21,9 @@ function teams(people: ReturnType<typeof parseAnswers>[]) {
   )
 }
 
-const day6 = aoc(
+const day06 = aoc(
   parseAnswers,
-  function day6(answers, partB, finish) {
+  function day06(answers, partB, finish) {
     const groups = teams(answers)
     let sum = 0,
       count = 0
@@ -36,7 +36,7 @@ const day6 = aoc(
     }
     return partB ? finish(count) : finish(sum)
   },
-  'day6-pre'
+  'day06-pre'
 )
 
-export default day6
+export default day06

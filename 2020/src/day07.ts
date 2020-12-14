@@ -16,9 +16,9 @@ function toBag(rule: string) {
   return [bag, innerBags] as const
 }
 
-const day7 = aoc(
+const day07 = aoc(
   toBag,
-  async function day7(bags, partB, finish) {
+  function day07(bags, partB, finish) {
     if (!partB) {
       const found = ['shiny gold'],
         visited = new Set<string>()
@@ -45,8 +45,8 @@ const day7 = aoc(
     }
     return finish(bagCount)
   },
-  'day7-pre',
-  'day7-bpre'
+  'day07-pre',
+  'day07-bpre'
 )
 
-export default day7
+export default day07

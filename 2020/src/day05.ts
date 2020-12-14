@@ -7,11 +7,11 @@ function parseSeatId(binSeat: string) {
   return row * 8 + column
 }
 
-const day5 = aoc(parseSeatId, function day5(seats, partB, finish) {
+const day05 = aoc(parseSeatId, function day05(seats, partB, finish) {
   const max = seats.reduce((max, id) => Math.max(max, id), 0),
     sparse = Array.from(Array(max), (_, i) => seats.find((id) => id === i)),
     id = Number(sparse.toString().match(/,(\d+),,\d+,/)?.[1]) + 1
   return finish(partB ? id : max)
 })
 
-export default day5
+export default day05

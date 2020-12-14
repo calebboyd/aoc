@@ -36,9 +36,9 @@ function execute(ops: Instruction[]) {
   return { acc, finished: pointer === ops.length }
 }
 
-const day8 = aoc(
+const day08 = aoc(
   instruction,
-  function day8(instructions, partB, finish) {
+  function day08(instructions, partB, finish) {
     const { acc } = execute(instructions)
     if (!partB) {
       return finish(acc)
@@ -54,7 +54,7 @@ const day8 = aoc(
       }
     }
   },
-  'day8-pre'
+  'day08-pre'
 )
 
-export default day8
+export default day08
