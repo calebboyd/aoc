@@ -160,3 +160,10 @@ describe('Advent Of Code day18', () => {
     expect('day18 part b').toEqual(244817530095503)
   })
 })
+describe.only('Advent Of Code day24', () => {
+  test('day24', async () => {
+    const expect = await expectFor('./day24')
+    expect('day24-pre').toEqual(10)
+    expect('day24').toEqual(300)
+  })
+})
